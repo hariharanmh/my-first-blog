@@ -1,0 +1,56 @@
+{% extends "super.html" %}
+
+{% block title %} {{ title }} | {{ block.super }} {% endblock %}
+
+{% block content %}
+    <center>
+        <div class="card z-depth-4">
+            <div class="container">
+                <div class="card-content">
+                    <span class="card-title blue-text"><strong>{{ day }}</strong></span>
+                        <hr>
+                        <h6 class="grey">Total Price : {{ total_price.customer_sale_price__sum }}</h6>
+                        <hr>
+                        <h6 class="grey">Total Quantity : {{ total_quantity.customer_sale_quantity__sum }}</h6>
+                        <hr>
+                        <table class="highlight">
+                            <thead>
+                                <tr>
+                                    <th class="hide-on-small-only" data-field="date">Date of Entry</th>
+                                    <th class="hide-on-small-only" data-field="date">Time of Entry</th>
+                                    <th data-field="name">Name</th>
+                                    <th class="hide-on-small-only" data-field="phone">Phone</th>
+                                    <th data-field="quantity">Quantity</th>
+                                    <th data-field="price">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in object_list %}
+                                    <tr>
+                                        <td class="hide-on-small-only">{{ c.date_of_entry|date:"F j, Y" }}</td>
+                                        <td class="hide-on-small-only" >{{ c.date_of_entry|time:"f, A" }}</td>
+                                        <td class="grey lighten-2"><a href='{{ c.get_absolute_url }}'>{{ c.customer_name }}</a></td>
+                                        <td class="hide-on-small-only">{{ c.customer_phone_number }}</td>
+                                        <td>{{ c.customer_sale_quantity }}</td>
+                                        <td>{{ c.customer_sale_price }}</td>
+                                    </tr>   
+                                {% endfor %}
+                            </tbody>
+                        </table>                            
+                    <br><br>
+                    <a class="btn waves-effect waves-light blue darken-4 z-depth-5" href='{% url "customers:list" %}'>Customer List</a>
+                    <br><br>
+                    <p>
+                        {% if previous_day %}
+                            Previous Day: {{ previous_day }}
+                        {% endif %}
+                        {% if previous_day and next_day %}--{% endif %}
+                        {% if next_day %}
+                            Next Day: {{ next_day }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </center>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "super.html" %}
+
+{% block title %} {{ title }} | {{ block.super }} {% endblock %}
+{% url 'list' %}
+
+{% block content %}
+	<div id="mydiv">
+		<a class="btn-floating btn-small waves-effect waves-light blue darken-4" href='{% url "customers:create" %}'>
+			<i class="material-icons">add</i>
+		</a>
+	</div>
+	<div class="container">
+		<div class="center-align section scrollspy">
+			{% if object_list %}
+				<ul class="collapsible popout" data-collapsible="accordion" id="mylist">
+					{% for obj in object_list %}
+						<li>
+							<div class="collapsible-header">
+								<a href='{{ obj.get_absolute_url }}' style="text-transform: uppercase;">
+									{{ obj }}-
+								</a>
+								{{ obj.customer_phone_number }}
+							</div>
+							<div class="collapsible-body">
+								<div class="row">
+									<div class="col s12 m5 l6 left-align">
+										<strong>NAME : </strong>{{ obj.customer_name }}<br>
+										<strong>PHONE : </strong>{{ obj.customer_phone_number }}<br>
+										<strong>EMAIL : </strong>{{ obj.customer_email_id }}<br>
+										<hr>
+										<strong>QUANTITY : </strong>{{ obj.customer_sale_quantity }}<br>
+										<strong>PRICE : </strong>{{ obj.customer_sale_price }}<br>
+										<hr>
+									</div>
+									<div class="col s12 m7 l5 left-align">
+										<p><strong>QUANTITY DESCRIPTION : {{ obj.customer_sale_quantity_desc }}</strong></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s6">
+										<a class="btn waves-effect waves-light blue darken-4 z-depth-5" 
+											href='{{ obj.get_absolute_url_update }}'>Edit</a>
+									</div>
+									<div class="col s6">
+										<a class="btn waves-effect waves-light blue darken-4 z-depth-5 " 
+											href='{{ obj.get_absolute_url_delete }}'>Delete</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<a href='{% url "customers:create" %}'> <h3> Add Customer </h3> </a>
+				<p>Please Add Customer.</p>
+			{% endif %}
+		</div>
+	</div>
+	<!-- <a class="btn-floating btn-small waves-effect waves-light blue darken-4" onclick="topFunction()" 
+		id="gotoBtn" style="display: none; bottom: 15px; left: 1250px; position: fixed;">
+		<i class="material-icons">navigation</i>
+	</a> -->
+	<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+	<div id="modal1" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+		</div>
+	</div> -->
+
+{% endblock %}
+
+
+	
+
+	
+
+	
+<!-- <h1> {{ shop.shop_name }} </h1>
+<h2> {{ title }} </h2>
+
+<br> 
+	<a href='{% url "customers:create" %}'>Add Customer</a> &nbsp&nbsp&nbsp&nbsp
+	<a href='{% url "customers:archive_today" %}'>Today</a> &nbsp&nbsp&nbsp&nbsp
+	<a href='{% url "shops:detail" slug=shop.slug  %}'>Edit Shop</a> &nbsp&nbsp&nbsp&nbsp
+	<a href='{% url "logout" %}'>Logout</a> &nbsp&nbsp&nbsp&nbsp -->

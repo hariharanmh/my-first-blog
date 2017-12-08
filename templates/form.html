@@ -1,0 +1,7 @@
+{% extends "super.html" %}
+
+{% block title %} {{ title }} | {{ block.super}} {% endblock %}
+
+{% block content %}
+	{% include 'snippets/form_snippet.html' %}
+{% endblock %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head	>
+		<title>{% block title %}Expo{% endblock %}</title>
+		{% include 'snippets/style.html' %} 
+	</head>
+
+	<body class="body">
+
+		{% include 'snippets/header.html' %}
+
+		<main>
+			<div class="row">
+				<div class="col l3 blue hide-on-med-and-down full-width">
+					{% if request.user.is_authenticated %}
+						{% include 'snippets/nav.html' %}
+					{% endif %}
+					{% if not request.user.is_authenticated %}
+						<div class="row" id="quote"></div>	
+					{% endif %}
+					<div class="row" id="quote"></div>
+				</div>
+				<div class="col s12 m12 l9 offset-l3">
+					{% block content %}
+					{% endblock %}
+				<div>
+			</div>
+		</main>
+
+		{% include 'snippets/script.html' %}
+
+	</body>
+</html>

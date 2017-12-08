@@ -1,0 +1,52 @@
+
+<div class="container">
+	<form>
+        <div class="input-field">
+          	<input class="search rounded" type="search" id="search">
+          	<label for="search"><i class="material-icons" style="position: fixed;">search</i></label>
+        </div>
+		</form>
+</div>
+<div class="collection">
+	<a href='{% url "customers:list" %}' class="collection-item">
+		<i class="material-icons left">view_list</i>
+		<span class="flow-text">Customer List</span>
+	</a>
+	<a href='{% url "customers:create" %}' class="collection-item">
+		<i class="material-icons left">add</i>
+		<span class="flow-text">Add Customer</span>
+	</a>
+	<a class="collection-item blue dropdown-button hide-on-med-and-down" data-activates="dropdown1">
+		<i class="material-icons left white">today</i>
+		<span class="white-text flow-text">Archive</span>
+	</a>
+	<ul id="dropdown1" class="dropdown-content">
+		<li>
+			<a href='{% url "customers:archive_today" %}' class="collection-item">
+				<span class="flow-text">&nbsp&nbspToday Archive</span>
+			</a>
+		</li>
+		<li>
+			<a href="/customers/2017/" class="collection-item">
+				<span class="flow-text">&nbsp&nbspYear Archive</span>
+			</a>
+		</li>
+	</ul>
+	<a href='{% url "customers:archive_today" %}' class="collection-item hide-on-large-only">
+		<i class="material-icons">today</i>
+		<span class="flow-text">&nbsp&nbspToday Archive</span>
+	</a>
+	<a href="/customers/2017/" class="collection-item hide-on-large-only">
+		<i class="material-icons">assignment</i>
+		<span class="flow-text">&nbsp&nbspYear Archive</span>
+	</a>
+	<a href="" class="collection-item"><i class="material-icons">message</i><span class="flow-text">&nbsp&nbspPromotion</a>
+	<a href='{% url "shops:list" %}' class="collection-item">
+		<i class="material-icons">store</i>
+		<span class="flow-text">&nbsp&nbspShop</span>
+	</a>
+	<a href='{% url "logout" %}' class="collection-item modal-trigger" data-target="modal1">
+		<i class="material-icons">lock_outline</i>
+		<span class="flow-text">&nbsp&nbspLogout</span>
+	</a>
+</div>

@@ -1,0 +1,151 @@
+{% load staticfiles %}
+<!--Import jQuery before materialize.js-->
+<script type = "text/javascript" src = "{% static 'materialize/js/jquery-2.1.1.min.js' %}"></script>
+<script type = "text/javascript" src = "{% static 'materialize/js/materialize.min.js' %}"></script>
+
+<script type="text/javascript">
+	function toggleFullScreen() {
+			if ((document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+			if (document.documentElement.requestFullScreen) {  
+				document.documentElement.requestFullScreen();  
+			} else if (document.documentElement.mozRequestFullScreen) {  
+  				document.documentElement.mozRequestFullScreen();  
+			} else if (document.documentElement.webkitRequestFullScreen) {  
+  				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+			}  
+				} else {  
+				if (document.cancelFullScreen) {  
+  					document.cancelFullScreen();  
+				} else if (document.mozCancelFullScreen) {  
+  					document.mozCancelFullScreen();  
+				} else if (document.webkitCancelFullScreen) {  
+  					document.webkitCancelFullScreen();  
+		    	}  
+		  		}  
+				}	
+
+	$(document).ready(function(){
+		$(".search").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#mylist li").filter(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		});
+	});
+
+	window.onscroll = function() {scrollFunction()};
+	function scrollFunction() {
+	    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+	        document.getElementById("gotoBtn").style.display = "block";
+	    } else {
+	        document.getElementById("gotoBtn").style.display = "none";
+	    }
+	}
+	function topFunction() {
+	    document.body.scrollTop = 0; // For Safari
+	    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+
+	$('.button-collapse').sideNav({
+		menuWidth: 250, // Default is 240
+		edge: 'left', // Choose the horizontal origin
+		closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+	});
+	
+	$('.dropdown-button').dropdown({
+		inDuration: 300,
+		outDuration: 225,
+		constrain_width: false, // Does not change width of dropdown to that of the activator
+		hover: true, // Activate on hover
+		gutter: 0, // Spacing from edge
+		belowOrigin: false, // Displays dropdown below the button
+		alignment: 'left' // Displays dropdown with edge aligned to the left of button
+	}
+	);
+
+	dragElement(document.getElementById(("mydiv")));
+	function dragElement(elmnt) {
+		var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+		if (document.getElementById(elmnt.id + "header")) {
+		/* if present, the header is where you move the DIV from:*/
+		document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+		} else {
+		/* otherwise, move the DIV from anywhere inside the DIV:*/
+		elmnt.onmousedown = dragMouseDown;
+		}
+
+		function dragMouseDown(e) {
+			e = e || window.event;
+			// get the mouse cursor position at startup:
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+			document.onmouseup = closeDragElement;
+			// call a function whenever the cursor moves:
+			document.onmousemove = elementDrag;
+		}
+
+		function elementDrag(e) {
+			e = e || window.event;
+			// calculate the new cursor position:
+			pos1 = pos3 - e.clientX;
+			pos2 = pos4 - e.clientY;
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+			// set the element's new position:
+			elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+			elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		}
+
+		function closeDragElement() {
+			/* stop moving when mouse button is released:*/
+			document.onmouseup = null;
+			document.onmousemove = null;
+		}
+
+	}
+
+	$.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(a) {
+	  $("#quote").append(a[0].content + "<p>— " + a[0].title + "</p>")
+	});
+
+	/*$("#autocomplete").keyup(function () {
+		var query = $(this).val();
+		$.ajax({
+			url: '/customers/search/',
+			data: {
+			'query': query
+			},
+			dataType: 'json',
+			success: function (json) {
+				var searchArray = json;
+				var dataSearch  = {};
+				for (var i = 0; i < searchArray.length; i++) {
+					dataSearch[searchArray[i].phone] = 'http://placehold.it/250x250'
+				}
+				for (var j = 0; j < searchArray.length; j++) {
+					dataSearch[searchArray[j].name] = searchArray[j]
+				}
+				var obj  = json
+				$.each(json, function(index, value) {
+					$("#search-result").prepend("<li>"+value.name+"--"+value.phone+"</li>");
+				});
+				$('input.autocomplete').autocomplete({
+					data: dataSearch
+				});
+			}
+		});
+	});*/
+
+	/*$('body').on('mouseover mouseout', 'a.myclass', function() {
+		alert("Clicked");
+    });*/
+	/*$(function() {
+		$('input.autocomplete').autocomplete({
+			data: {
+				"Apple": null,
+				"Microsoft": null,
+				"Google": 'http://placehold.it/250x250',
+			}
+		});
+	});*/
+</script>

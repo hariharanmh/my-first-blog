@@ -1,0 +1,22 @@
+{% extends "super.html" %}
+
+{% block title %} {{ title }} | {{ block.super}} {% endblock title %}
+
+{% url 'delete' %}
+
+{% block content %}
+	<center>
+		<div class="card z-depth-4">
+			<div class="container">
+				<div class="card-content">
+					<span class="card-title blue-text"><strong>{{ object }}</strong></span>
+					<form action="" method="post">
+						{% csrf_token %}
+					    <p class="center-align">Are you sure you want to delete "{{ object }}"?</p><br>
+					    <input class="btn waves-effect waves-light blue darken-4 z-depth-5" type="submit" value="Confirm" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</center>
+{% endblock %}

@@ -1,0 +1,26 @@
+<header>
+	<div class="navbar-fixed">
+		<nav class="blue darken-4 white-text" role="navigation">
+			<div class="nav-wrapper">
+				<ul class="left">
+					<li>
+						<a onclick="$('.button-collapse').sideNav('show')">
+							<i class="waves-effect waves-light material-icons hide-on-large-only">more_vert</i>
+						</a>
+					</li>
+					<li>
+						<a href="" class="brand-logo waves-effect waves-light">&nbsp Logo &nbsp&nbsp&nbsp&nbsp</a>
+					</li>
+				</ul>
+				<ul class="right">
+					<li><a href='{% url "shops:list" %}'><i class="waves-effect waves-light material-icons hide-on-med-and-down">store</i></a></li>
+					<li><a onclick="toggleFullScreen()"><i class="waves-effect waves-light material-icons">launch</i></a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<div class="side-nav" id="slide-out">
+		{% include 'snippets/nav.html' %}
+	</div>
+	<a data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+</header>

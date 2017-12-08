@@ -1,0 +1,28 @@
+{% extends "super.html" %}
+
+{% block title %}Shop || {{ block.super }} {% endblock %}
+{% url 'list' %}
+{% block content %}
+	<center>
+		<div class="card z-depth-4">
+			<div class="container">
+				{% if object_list %}
+					<div class="card-content">
+						{% for obj in object_list %}
+							<span class="card-title blue-text"><strong>{{ obj.shop_name }}</strong></span>
+							<br>
+							<strong>PHONE : </strong>{{ obj.shop_phone_number }}<br>
+							<strong>CITY : </strong>{{ obj.shop_city }}<br>
+							<strong>ADDRESS : </strong>{{ obj.shop_city }}<br>
+							<br>
+							<p>{{ obj.date_of_entry }}, Updated {{ obj.date_of_update|timesince }} ago</p>
+							<br><br>
+							<a class="btn waves-effect waves-light blue darken-4 z-depth-5" href='{{ obj.get_absolute_url_update }}'>UPDATE</a>
+							<br><br>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</center>
+{% endblock %}

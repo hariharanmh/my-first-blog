@@ -1,0 +1,19 @@
+
+{% block content %}
+	{% if customer %}
+		{% for c in customer %}
+		<li>
+			<div class="collapsible-header"><a href='{{ c.get_absolute_url }}'>{{ c }}</a></div>
+			<div class="collapsible-body">
+				<p>{{ c.customer_name }}	- {{ c.customer_phone_number }} -	{{ c.customer_email_id }} <br>
+				{{ c.customer_sale_quantity }} - {{ c.customer_sale_price }} - {{ c.customer_sale_quantity_desc }} <br>
+				<a href='{{ c.get_absolute_url_update }}'>Edit</a> &nbsp&nbsp&nbsp&nbsp
+				<a href='{{ c.get_absolute_url_delete }}'>Delete</a><br></p>
+			</div>
+			hai
+		</li>
+		{% endfor %}
+	{% else %}
+		<p> Customer not found </p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "super.html" %}
+
+{% block title %} REGISTER | {{ block.super }} {% endblock %}
+
+{% url 'register' %}
+
+{% block content %}
+	<center>
+		<div class="card z-depth-4">
+			<div class="container">
+				<br>
+				<h3 class="center-align"> REGISTER </h3>
+				<div class="row">
+					{% if form.errors %}
+						<div class="red-text" style="text-transform: capitalize;">
+							<!-- <p>Your username and password didn't match. Please try again.</p> -->
+							<p>Please Enter A Correct Username And Password. Note That Both Fields May Be Case-Sensitive.</p>
+						</div>
+					{% endif %}
+					<form class="col s12 m12 rounded" method="POST">
+						{% csrf_token %}
+						{% for field in form.visible_fields %}
+							<div class="row">
+								<div class="input-field col s12 m12">
+									{% if field.errors %}
+										<span class="red-text" style="text-transform: capitalize;">{{ field.errors|escape }}</span>	
+									{% endif %}
+									<input class="rounded" value='{% if field.value %} {{ field.value }} {% endif %}' 
+										placeholder='{{ field.label }}' id='{{ field.id_for_label }}' name='{{ field.html_name }}' 
+										type='{{ field.field.widget.input_type }}' maxlength='{{ field.field.max_length }}'>
+									<label for='{{ field.id_for_label }}'> {{ field.label }} : </label>
+									{% if field.help_text %}
+										<p class="help"> {{ field.help_text|safe }} </p>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+						<button class="btn waves-effect waves-light blue darken-4" type="submit">Register</button>
+						<p>Did you need to <a href='{% url "login" %}'>Login</a>?
+					</form>
+					{% if next != "/" and next is not None %}
+					    {% if not user.is_authenticated %}
+					    <p>Your account doesn't have access to this page. To proceed,
+					    please login with an account that has access.</p>
+					    {% else %}
+					    <p>Please login to see this page.</p>
+					    {% endif %}
+					{% endif %}
+				</div>
+			</div>
+			<br>
+		</div>
+	</center>
+{% endblock %}
+
+
+<!-- <form method='POST' action="{% url 'register' %}"> 
+	{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register" />
+	<input type="hidden" name="next" value="{{ next }}" />
+</form> -->
